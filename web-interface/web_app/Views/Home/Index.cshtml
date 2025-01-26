@@ -1,0 +1,43 @@
+﻿@model PromptModel?
+
+@{
+    ViewData["Title"] = "Home Page";
+}
+
+<div class="text-center">
+    <h1 class="display-4">Welcome</h1>
+    <environment include="Development">
+        <div>Environment is Development</div>
+    </environment>
+    <environment exclude="Development">
+        <div>Environment is NOT Development</div>
+    </environment>
+    <environment include="Staging,Development,Staging_2">
+        <div>Environment is: Staging, Development or Staging_2</div>
+    </environment>
+    <environment include="Production">
+        <div>Environment is: Production</div>
+    </environment>
+</div>
+
+<div>
+    <form asp-controller="Home" asp-action="Prompt" method="post">
+        <div class="form-group">
+            <label asp-for="Prompt" class="control-label"></label>
+            <input asp-for="Prompt" class="form-control"/>
+            <span asp-validation-for="Prompt" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <input type="submit" value="Send" class="btn btn-primary" />
+        </div>
+    </form>
+</div>
+
+@if (Model?.Response != null)
+{
+<div class="text-center">
+    <p>
+    @Model.Response
+    </p>
+</div>
+}
